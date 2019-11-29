@@ -20,10 +20,12 @@ public class ClientUDP3 {
 		clientSocket.setSoTimeout(5000);
 		DatagramPacket enviament;
 
+		//Mentre no es tanqui la connexió, el programa continuarà demanant a l'usuari un missatge
 		while (!clientSocket.isClosed()) {
 			// INTRODUIR DADES PEL TECLAT
 			System.out.print("Introdueix missatge: ");
 			String cadena = in.readLine();
+			//Si l'usuari escriu "exit", el programa finalitzarà
 			if(cadena.equals("exit")) {
 				clientSocket.close();
 			} else {
@@ -38,7 +40,7 @@ public class ClientUDP3 {
 
 				DatagramPacket rebut = new DatagramPacket(rebuts, rebuts.length);
 				System.out.println("Esperant datagrama...");
-				
+				//Si passen mes de 5 segons, es tancarà la connexió.
 				try {
 					clientSocket.receive(rebut);
 				} catch (SocketTimeoutException e) {
